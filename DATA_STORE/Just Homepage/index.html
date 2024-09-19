@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ESP32 Web Server</title>
+</head>
+<body>
+  <h1>ESP32 Web Server</h1>
+  <button onclick="toggleLED('on')">Turn On LED</button>
+  <button onclick="toggleLED('off')">Turn Off LED</button>
+  <script>
+    function toggleLED(state) {
+      fetch(`/led/${state}`)
+        .then(response => response.text())
+        .then(data => console.log(data));
+    }
+  </script>
+</body>
+</html>
