@@ -95,21 +95,26 @@ void setup() {
 
   // Handle Android captive portal check
   server.on("/generate_204", HTTP_GET, [](AsyncWebServerRequest *request){
-    Serial.println("Android captive portal check");
-    request->send(SPIFFS, "/index.html", "text/html");
+    Serial.println("Android captive portal check (/generate_204)");
+    request->redirect("/");
   });
 
-  // Handle iOS captive portal check
+  // Handle iOS captive portal check with different URLs
+  server.on("/hotspot-detect.html", HTTP_GET, [](AsyncWebServerRequest *request){
+    Serial.println("iOS captive portal check (/hotspot-detect.html)");
+    request->redirect("/");
+  });
+
   server.on("/library/test/success.html", HTTP_GET, [](AsyncWebServerRequest *request){
-    Serial.println("iOS captive portal check");
-    request->send(SPIFFS, "/index.html", "text/html");
+    Serial.println("iOS captive portal check (/library/test/success.html)");
+    request->redirect("/");
   });
 
-  // Handle any other routes by serving index.html
+  // Handle any other routes by redirecting to index.html
   server.onNotFound([](AsyncWebServerRequest *request){
     Serial.print("Unhandled request: ");
     Serial.println(request->url());
-    request->send(SPIFFS, "/index.html", "text/html");
+    request->redirect("/");
   });
 
   // Start server
