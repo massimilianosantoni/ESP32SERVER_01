@@ -2,10 +2,11 @@
 #include <ESPAsyncWebServer.h>
 #include <SPIFFS.h>
 #include <DNSServer.h>
+#include <ArduinoJson.h>
 
 // Replace with your network credentials
-const char* ssid = "SPAPPERI-6548373";
-char password[] = "12345678";
+const char* ssid = "ESP32-Access-Point";
+char password[32] = "12345678";
 
 // Create AsyncWebServer object on port 80
 AsyncWebServer server(80);
@@ -41,15 +42,11 @@ void setup() {
     return;
   }
 
-  // Set up Access Point with a specific IP address
-IPAddress local_IP(192, 168, 1, 1);
-IPAddress gateway(192, 168, 1, 1);
-IPAddress subnet(255, 255, 255, 0);
-WiFi.softAPConfig(local_IP, gateway, subnet);
-WiFi.softAP(ssid, password);
-Serial.println("Access Point Started");
-Serial.print("IP Address: ");
-Serial.println(WiFi.softAPIP());
+  // Set up Access Point
+  WiFi.softAP(ssid, password);
+  Serial.println("Access Point Started");
+  Serial.print("IP Address: ");
+  Serial.println(WiFi.softAPIP());
 
   // Setup DNS server to redirect all requests to the ESP32
   dnsServer.start(DNS_PORT, "*", WiFi.softAPIP());
@@ -71,10 +68,13 @@ Serial.println(WiFi.softAPIP());
 
   // Handle configuration changes
   server.on("/config", HTTP_POST, [](AsyncWebServerRequest *request){
-    if (request->hasParam("password", true)) {
-      String newPassword = request->getParam("password", true)->value();
-      if (newPassword.length() > 0 && newPassword.length() < 32) {
-        newPassword.toCharArray(password, 32);
+    if (request->hasParam("body", true)) {
+      String body = request->getParam("body", true)->value();
+      DynamicJsonDocument doc(1024);
+      deserializeJson(doc, body);
+      const char* newPassword = doc["password"];
+      if (strlen(newPassword) > 0 && strlen(newPassword) < 32) {
+        strcpy(password, newPassword);
         request->send(200, "text/plain", "Password updated. Please reconnect to the AP.");
         ESP.restart();
       } else {

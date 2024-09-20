@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ESP32 Configuration</title>
+</head>
+<body>
+  <h1>ESP32 Configuration</h1>
+  <form id="configForm">
+    <label for="password">New AP Password:</label>
+    <input type="password" id="password" name="password">
+    <button type="submit">Save</button>
+  </form>
+  <script>
+    document.getElementById('configForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const password = document.getElementById('password').value;
+      fetch('/config', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ password: password })
+      })
+      .then(response => response.text())
+      .then(data => alert(data));
+    });
+  </script>
+</body>
+</html>

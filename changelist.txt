@@ -1,0 +1,113 @@
+Changes
+
+ *  Executing task in folder ESP32SERVER_01: C:\Users\rampu\.platformio\penv\Scripts\platformio.exe pkg update --environment az-delivery-devkit-v4 
+
+Resolving az-delivery-devkit-v4 dependencies...
+Platform Manager: Updating espressif32 @ 3.4.0
+Platform Manager: Removing espressif32 @ 3.4.0
+Platform Manager: espressif32@3.4.0 has been removed!      
+Platform Manager: Installing platformio/espressif32 @ 6.8.1
+Downloading  [####################################]  100%
+Unpacking  [####################################]  100%
+Platform Manager: espressif32@6.8.1 has been installed!
+Tool Manager: Installing espressif/toolchain-xtensa-esp32 @ 8.4.0+2021r2-patch5
+Downloading  [####################################]  100%
+Unpacking  [####################################]  100%
+Tool Manager: toolchain-xtensa-esp32@8.4.0+2021r2-patch5 has been installed!
+Tool Manager: Installing platformio/tool-esptoolpy @ ~1.40501.0
+Downloading  [####################################]  100%
+Unpacking  [####################################]  100%
+Tool Manager: tool-esptoolpy@1.40501.0 has been installed!
+
+
+ *  Executing task in folder ESP32SERVER_01: C:\Users\rampu\.platformio\penv\Scripts\platformio.exe remote device list 
+
+Tool Manager: Installing platformio/contrib-pioremote @ ~1.0.0
+Downloading  [####################################]  100%
+Unpacking  [####################################]  100%
+Collecting twisted==24.7.0 (from twisted[tls]==24.7.0)
+  Downloading twisted-24.7.0-py3-none-any.whl.metadata (18 kB)
+Collecting attrs>=21.3.0 (from twisted==24.7.0->twisted[tls]==24.7.0)
+  Downloading attrs-24.2.0-py3-none-any.whl.metadata (11 kB)
+Collecting automat>=0.8.0 (from twisted==24.7.0->twisted[tls]==24.7.0)
+  Downloading Automat-24.8.1-py3-none-any.whl.metadata (8.4 kB)
+Collecting constantly>=15.1 (from twisted==24.7.0->twisted[tls]==24.7.0)
+  Downloading constantly-23.10.4-py3-none-any.whl.metadata (1.8 kB)
+Collecting hyperlink>=17.1.1 (from twisted==24.7.0->twisted[tls]==24.7.0)
+  Downloading hyperlink-21.0.0-py2.py3-none-any.whl.metadata (1.5 kB)
+Collecting incremental>=24.7.0 (from twisted==24.7.0->twisted[tls]==24.7.0)
+  Downloading incremental-24.7.2-py3-none-any.whl.metadata (8.1 kB)
+Collecting typing-extensions>=4.2.0 (from twisted==24.7.0->twisted[tls]==24.7.0)
+  Using cached typing_extensions-4.12.2-py3-none-any.whl.metadata (3.0 kB)
+Collecting zope-interface>=5 (from twisted==24.7.0->twisted[tls]==24.7.0)
+  Downloading zope.interface-7.0.3-cp311-cp311-win_amd64.whl.metadata (44 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 44.8/44.8 kB 548.7 kB/s eta 0:00:00
+Collecting idna>=2.4 (from twisted[tls]==24.7.0)
+  Downloading idna-3.10-py3-none-any.whl.metadata (10 kB)
+Collecting pyopenssl>=21.0.0 (from twisted[tls]==24.7.0)
+  Downloading pyOpenSSL-24.2.1-py3-none-any.whl.metadata (13 kB)
+Collecting service-identity>=18.1.0 (from twisted[tls]==24.7.0)
+  Downloading service_identity-24.1.0-py3-none-any.whl.metadata (4.8 kB)
+Collecting setuptools>=61.0 (from incremental>=24.7.0->twisted==24.7.0->twisted[tls]==24.7.0)
+  Downloading setuptools-75.1.0-py3-none-any.whl.metadata (6.9 kB)
+Collecting cryptography<44,>=41.0.5 (from pyopenssl>=21.0.0->twisted[tls]==24.7.0)
+  Downloading cryptography-43.0.1-cp39-abi3-win_amd64.whl.metadata (5.4 kB)
+Collecting pyasn1 (from service-identity>=18.1.0->twisted[tls]==24.7.0)
+  Downloading pyasn1-0.6.1-py3-none-any.whl.metadata (8.4 kB)
+Collecting pyasn1-modules (from service-identity>=18.1.0->twisted[tls]==24.7.0)
+  Downloading pyasn1_modules-0.4.1-py3-none-any.whl.metadata (3.5 kB)
+Collecting cffi>=1.12 (from cryptography<44,>=41.0.5->pyopenssl>=21.0.0->twisted[tls]==24.7.0)
+  Downloading cffi-1.17.1-cp311-cp311-win_amd64.whl.metadata (1.6 kB)
+Collecting pycparser (from cffi>=1.12->cryptography<44,>=41.0.5->pyopenssl>=21.0.0->twisted[tls]==24.7.0)
+  Downloading pycparser-2.22-py3-none-any.whl.metadata (943 bytes)
+Downloading twisted-24.7.0-py3-none-any.whl (3.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.2/3.2 MB 859.9 kB/s eta 0:00:00
+Downloading attrs-24.2.0-py3-none-any.whl (63 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 63.0/63.0 kB 1.1 MB/s eta 0:00:00
+Downloading Automat-24.8.1-py3-none-any.whl (42 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 42.6/42.6 kB ? eta 0:00:00
+Downloading constantly-23.10.4-py3-none-any.whl (13 kB)
+Downloading hyperlink-21.0.0-py2.py3-none-any.whl (74 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 74.6/74.6 kB 815.2 kB/s eta 0:00:00
+Downloading idna-3.10-py3-none-any.whl (70 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 70.4/70.4 kB 771.8 kB/s eta 0:00:00
+Downloading incremental-24.7.2-py3-none-any.whl (20 kB)
+Downloading pyOpenSSL-24.2.1-py3-none-any.whl (58 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 58.4/58.4 kB 1.0 MB/s eta 0:00:00
+Downloading service_identity-24.1.0-py3-none-any.whl (12 kB)
+Using cached typing_extensions-4.12.2-py3-none-any.whl (37 kB)
+Downloading zope.interface-7.0.3-cp311-cp311-win_amd64.whl (211 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 212.0/212.0 kB 921.1 kB/s eta 0:00:00
+Downloading cryptography-43.0.1-cp39-abi3-win_amd64.whl (3.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.1/3.1 MB 777.1 kB/s eta 0:00:00
+Downloading setuptools-75.1.0-py3-none-any.whl (1.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 784.7 kB/s eta 0:00:00
+Downloading pyasn1-0.6.1-py3-none-any.whl (83 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 83.1/83.1 kB 775.5 kB/s eta 0:00:00
+Downloading pyasn1_modules-0.4.1-py3-none-any.whl (181 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 181.5/181.5 kB 782.2 kB/s eta 0:00:00
+Downloading cffi-1.17.1-cp311-cp311-win_amd64.whl (181 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 181.4/181.4 kB 785.1 kB/s eta 0:00:00
+Downloading pycparser-2.22-py3-none-any.whl (117 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 117.6/117.6 kB 975.6 kB/s eta 0:00:00
+Installing collected packages: typing-extensions, setuptools, pycparser, pyasn1, idna, constantly, automat, attrs, zope-interface, 
+pyasn1-modules, incremental, hyperlink, cffi, twisted, cryptography, service-identity, pyopenssl
+Successfully installed attrs-24.2.0 automat-24.8.1 cffi-1.17.1 constantly-23.10.4 cryptography-43.0.1 hyperlink-21.0.0 idna-3.10 in
+cremental-24.7.2 pyasn1-0.6.1 pyasn1-modules-0.4.1 pycparser-2.22 pyopenssl-24.2.1 service-identity-24.1.0 setuptools-75.1.0 twisted-24.7.0 typing-extensions-4.12.2 zope-interface-7.0.3                                                                             
+[notice] A new release of pip is available: 24.1.1 -> 24.2
+[notice] To update, run: python.exe -m pip install --upgrade pip
+Collecting pywin32!=226
+  Downloading pywin32-306-cp311-cp311-win_amd64.whl.metadata (6.5 kB)
+Downloading pywin32-306-cp311-cp311-win_amd64.whl (9.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.2/9.2 MB 807.0 kB/s eta 0:00:00
+Installing collected packages: pywin32
+Successfully installed pywin32-306
+WARNING: Target directory C:\Users\rampu\.platformio\packages\contrib-pioremote\bin already exists. Specify --upgrade to force repl
+acement.                                                                                                                           
+[notice] A new release of pip is available: 24.1.1 -> 24.2
+[notice] To update, run: python.exe -m pip install --upgrade pip
+Tool Manager: contrib-pioremote@1.0.2 has been installed!
+2024-09-19 17:48:57 [error] You are not authorized! Please log in to PlatformIO Account.
+
+ *  The terminal process "C:\Users\rampu\.platformio\penv\Scripts\platformio.exe 'remote', 'device', 'list'" terminated with exit c
+ode: 1.                                                                                                                            
