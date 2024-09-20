@@ -3,7 +3,9 @@
 #include <SPIFFS.h>
 #include <DNSServer.h>
 
-// Replace with your network credentials
+#define VERSION "1.0.0"
+
+// Network credentials
 const char* ssid = "SPAPPERI-6548373";
 char password[] = "12345678";
 
@@ -17,6 +19,15 @@ const int resetPin = 0; // Change to the appropriate pin for your board
 
 // DNS server settings
 const byte DNS_PORT = 53;
+
+// List of iOS detection URLs
+const char* ios_detect_urls[] = {
+  "/hotspot-detect.html",
+  "/library/test/success.html",
+  "/hotspot-detect-static.html",
+  "/library/test/success-icon.png"
+};
+const int ios_detect_urls_count = sizeof(ios_detect_urls) / sizeof(ios_detect_urls[0]);
 
 void setup() {
   // Initialize Serial Monitor
@@ -51,8 +62,12 @@ void setup() {
   }
   WiFi.softAP(ssid, password);
   Serial.println("Access Point Started");
+  Serial.print("Version: ");
+  Serial.println(VERSION);
   Serial.print("IP Address: ");
   Serial.println(WiFi.softAPIP());
+
+ 
 
   // Start DNS server
   dnsServer.start(DNS_PORT, "*", WiFi.softAPIP());
@@ -96,25 +111,26 @@ void setup() {
   // Handle Android captive portal check
   server.on("/generate_204", HTTP_GET, [](AsyncWebServerRequest *request){
     Serial.println("Android captive portal check (/generate_204)");
-    request->redirect("/");
+    // Respond with 204 No Content for Android
+    request->send(204);
   });
 
-  // Handle iOS captive portal check with different URLs
-  server.on("/hotspot-detect.html", HTTP_GET, [](AsyncWebServerRequest *request){
-    Serial.println("iOS captive portal check (/hotspot-detect.html)");
-    request->redirect("/");
-  });
+  // Handle iOS captive portal check URLs by serving index.html
+  for(int i=0; i < ios_detect_urls_count; i++) {
+    server.on(ios_detect_urls[i], HTTP_GET, [](AsyncWebServerRequest *request){
+      Serial.print("iOS captive portal check (");
+      Serial.print(request->url());
+      Serial.println(")");
+      // Serve the captive portal page
+      request->send(SPIFFS, "/index.html", "text/html");
+    });
+  }
 
-  server.on("/library/test/success.html", HTTP_GET, [](AsyncWebServerRequest *request){
-    Serial.println("iOS captive portal check (/library/test/success.html)");
-    request->redirect("/");
-  });
-
-  // Handle any other routes by redirecting to index.html
+  // Handle any other routes by serving index.html
   server.onNotFound([](AsyncWebServerRequest *request){
     Serial.print("Unhandled request: ");
     Serial.println(request->url());
-    request->redirect("/");
+    request->send(SPIFFS, "/index.html", "text/html");
   });
 
   // Start server
