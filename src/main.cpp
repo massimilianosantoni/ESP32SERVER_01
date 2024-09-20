@@ -21,6 +21,7 @@ const byte DNS_PORT = 53;
 void setup() {
   // Initialize Serial Monitor
   Serial.begin(115200);
+  delay(1000);
 
   // Set LED pin as output
   pinMode(ledPin, OUTPUT);
@@ -42,16 +43,18 @@ void setup() {
   }
 
   // Set up Access Point with a specific IP address
-IPAddress local_IP(192, 168, 1, 1);
-IPAddress gateway(192, 168, 1, 1);
-IPAddress subnet(255, 255, 255, 0);
-WiFi.softAPConfig(local_IP, gateway, subnet);
-WiFi.softAP(ssid, password);
-Serial.println("Access Point Started");
-Serial.print("IP Address: ");
-Serial.println(WiFi.softAPIP());
+  IPAddress local_IP(192, 168, 4, 1);
+  IPAddress gateway(192, 168, 4, 1);
+  IPAddress subnet(255, 255, 255, 0);
+  if(!WiFi.softAPConfig(local_IP, gateway, subnet)){
+    Serial.println("AP Config Failed");
+  }
+  WiFi.softAP(ssid, password);
+  Serial.println("Access Point Started");
+  Serial.print("IP Address: ");
+  Serial.println(WiFi.softAPIP());
 
-  // Setup DNS server to redirect all requests to the ESP32
+  // Start DNS server
   dnsServer.start(DNS_PORT, "*", WiFi.softAPIP());
 
   // Serve static files from SPIFFS
@@ -61,11 +64,13 @@ Serial.println(WiFi.softAPIP());
   // Handle LED on/off
   server.on("/led/on", HTTP_GET, [](AsyncWebServerRequest *request){
     digitalWrite(ledPin, HIGH);
+    Serial.println("LED turned ON");
     request->send(200, "text/plain", "LED is ON");
   });
 
   server.on("/led/off", HTTP_GET, [](AsyncWebServerRequest *request){
     digitalWrite(ledPin, LOW);
+    Serial.println("LED turned OFF");
     request->send(200, "text/plain", "LED is OFF");
   });
 
@@ -75,18 +80,41 @@ Serial.println(WiFi.softAPIP());
       String newPassword = request->getParam("password", true)->value();
       if (newPassword.length() > 0 && newPassword.length() < 32) {
         newPassword.toCharArray(password, 32);
+        Serial.println("Password updated via /config");
         request->send(200, "text/plain", "Password updated. Please reconnect to the AP.");
         ESP.restart();
       } else {
+        Serial.println("Invalid password length attempted");
         request->send(400, "text/plain", "Invalid password length.");
       }
     } else {
+      Serial.println("No password provided in /config");
       request->send(400, "text/plain", "No password provided.");
     }
   });
 
+  // Handle Android captive portal check
+  server.on("/generate_204", HTTP_GET, [](AsyncWebServerRequest *request){
+    Serial.println("Android captive portal check");
+    request->send(SPIFFS, "/index.html", "text/html");
+  });
+
+  // Handle iOS captive portal check
+  server.on("/library/test/success.html", HTTP_GET, [](AsyncWebServerRequest *request){
+    Serial.println("iOS captive portal check");
+    request->send(SPIFFS, "/index.html", "text/html");
+  });
+
+  // Handle any other routes by serving index.html
+  server.onNotFound([](AsyncWebServerRequest *request){
+    Serial.print("Unhandled request: ");
+    Serial.println(request->url());
+    request->send(SPIFFS, "/index.html", "text/html");
+  });
+
   // Start server
   server.begin();
+  Serial.println("Web Server Started");
 }
 
 void loop() {
